@@ -1,0 +1,17 @@
+curl ^"https://www.google-analytics.com/g/collect?v=2^&tid=G-YJ04B3CMSP^&gtm=45je64f1h1v9200404604z8857558294za20gzb857558294zd857558294^&_p=1776574838884^&gcd=13l3l3l3l1l1^&npa=0^&dma=0^&_eu=AAAAAAQ^&are=1^&cid=699983612.1762179064^&frm=0^&pscdl=noapi^&rcb=8^&sr=1920x1080^&uaa=x86^&uab=64^&uafvl=Google^%^2520Chrome^%^3B147.0.7727.56^%^7CNot.A^%^252FBrand^%^3B8.0.0.0^%^7CChromium^%^3B147.0.7727.56^&uam=^&uamb=0^&uap=Windows^&uapv=19.0.0^&uaw=0^&ul=en-us^&_s=4^&tag_exp=0~115938465~115938468~117266400~117512542~117971173^&sid=1776574878^&sct=7^&seg=1^&dl=https^%^3A^%^2F^%^2Fstudio.vbee.vn^%^2Fstudio^%^2Ftext-to-speech^&dr=https^%^3A^%^2F^%^2Fstudio.vbee.vn^%^2Fstudio^%^2Ftext-to-speech^%^3Fcode^%^3Dd0046ca4-5a3d-446b-b825-99b08efe5e98^&dt=Vbee^%^20-^%^20Text^%^20To^%^20Speech^&uid=1588ce7f-e92a-4379-a6be-718dd78322d8^&en=generate_audio^&_et=10787^&tfd=106275^" ^
+  -X ^"POST^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9,vi-VN;q=0.8,vi;q=0.7^" ^
+  -H ^"content-length: 0^" ^
+  -b ^"ar_debug=1^" ^
+  -H ^"origin: https://studio.vbee.vn^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://studio.vbee.vn/^" ^
+  -H ^"sec-ch-ua: ^\^"Google Chrome^\^";v=^\^"147^\^", ^\^"Not.A/Brand^\^";v=^\^"8^\^", ^\^"Chromium^\^";v=^\^"147^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: no-cors^" ^
+  -H ^"sec-fetch-site: cross-site^" ^
+  -H ^"sec-fetch-storage-access: active^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36^"

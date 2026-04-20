@@ -1,0 +1,15 @@
+curl ^"https://vbee.vn/api/v2/requests?limit=5^&fields=id,title,characters,credits,createdAt,progress,status,voice,audioType,audioLink,retentionPeriod,processingAt,endedAt^&sort=createdAt_desc^" ^
+  -H ^"accept: application/json, text/plain, */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9,vi-VN;q=0.8,vi;q=0.7^" ^
+  -H ^"authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTg4Y2U3Zi1lOTJhLTQzNzktYTZiZS03MThkZDc4MzIyZDgiLCJ1c2VybmFtZSI6ImRvYW5oa2lyaXRvQGdtYWlsLmNvbSIsImVtYWlsIjoiZG9hbmhraXJpdG9AZ21haWwuY29tIiwibmFtZSI6IkRvIERvYW5oIiwiZ2l2ZW5fbmFtZSI6IkRvIiwiZmFtaWx5X25hbWUiOiJEb2FuaCIsInBob25lX251bWJlciI6IiIsImF6cCI6InZiZWUtYWNjb3VudCIsInJlYWxtX2FjY2VzcyI6e30sInJlc291cmNlX2FjY2VzcyI6e30sImlhdCI6MTc3NjU3NDgzOSwiZXhwIjoxNzc2NjYxMjM5fQ.g00RJP9RxdDtXJvUEJ6pIoVIvFG-Ehf_CFSggjpjeF7bfroQEVXawcPUoAMH0fkO4S71Y3SrgrRjN8FM5PR5KlnaFrDAD3M4YIBil_zW4LGUwQ_dJjHh5YWXedV806GEdtpz8x6t88P6SzfzBDOdUljfnmOJVOwq21UI4O4aBCEHRqAEutsahFbvkNAjwT2LwOBCNzow0G03pENYbH_JK2QWhE5DAnCNG7uYT8H5m5p3MeKE2uDkpv0PTi8k5YmjD4yBIcgqmySwJJ-naE2AuzMwkVzl3KuZL6X3oIN2u40fCtqlMqe6B9p7EkQ12o5w7ukRvL-VbRXQuNW6uJUy1Q^" ^
+  -H ^"if-none-match: W/^\^"1cf7-fAH7xzWKxlioTy+noYYHoyktQHc^\^"^" ^
+  -H ^"origin: https://studio.vbee.vn^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://studio.vbee.vn/^" ^
+  -H ^"sec-ch-ua: ^\^"Google Chrome^\^";v=^\^"147^\^", ^\^"Not.A/Brand^\^";v=^\^"8^\^", ^\^"Chromium^\^";v=^\^"147^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-site^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36^"
