@@ -52,7 +52,6 @@ khi thầy nhận được danh sách lớp chủ nhiệm
 
 14
 00:00:25,533 --> 00:00:27,666
-giọng đọc được tạo bởi VB chấm vn
 
 15
 00:00:28,133 --> 00:00:29,600
@@ -180,7 +179,6 @@ giải pháp chuyển văn bản thành giọng nói hàng đầu
 
 46
 00:01:26,200 --> 00:01:27,766
-Việt Nam từ VB chấm vn
 
 47
 00:01:28,266 --> 00:01:29,700
@@ -300,7 +298,6 @@ nơi những tán Phượng già đang xào xạc
 
 76
 00:02:22,800 --> 00:02:24,933
-giọng đọc được tạo bởi VB chấm vn
 
 77
 00:02:25,466 --> 00:02:28,066
@@ -356,7 +353,6 @@ mà là công cụ
 
 90
 00:02:50,766 --> 00:02:53,700
-trải nghiệm công nghệ giọng nói AI tại VB chấm vn
 
 91
 00:02:54,166 --> 00:02:56,166
@@ -404,7 +400,6 @@ a 4
 
 102
 00:03:15,266 --> 00:03:18,133
-trải nghiệm công nghệ giọng nói AI tại VB chấm vn
 
 103
 00:03:18,633 --> 00:03:19,866
@@ -616,7 +611,6 @@ sống lương khẽ lạnh đi
 
 155
 00:04:50,033 --> 00:04:52,500
-thầy duy định đặt bút chấm điểm 10 Cho tư duy độc đáo này
 
 156
 00:04:52,600 --> 00:04:54,333
@@ -660,7 +654,6 @@ hình hài
 
 166
 00:05:11,100 --> 00:05:14,333
-VB chấm vn giải pháp text to Speak hàng đầu Việt Nam
 
 167
 00:05:14,933 --> 00:05:18,400
@@ -692,7 +685,6 @@ luôn cúi gằm mặt và không bao giờ lên tiếng trong giờ học
 
 174
 00:05:31,033 --> 00:05:33,200
-trong bài làm văn của LAN mà thầy duy vừa chấm lúc
 
 175
 00:05:33,200 --> 00:05:35,166
@@ -792,7 +784,6 @@ thầy hiểu rằng mình không thể đứng ngoài cuộc
 
 199
 00:06:15,100 --> 00:06:17,400
-tạo giọng đọc chuyên nghiệp với VB chấm vn
 
 200
 00:06:17,900 --> 00:06:19,200
@@ -836,7 +827,6 @@ cảnh giác
 
 210
 00:06:34,766 --> 00:06:38,166
-audio này được tổng hợp từ công nghệ AI của VB chấm vn
 
 211
 00:06:38,700 --> 00:06:41,000
