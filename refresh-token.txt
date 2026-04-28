@@ -1,0 +1,16 @@
+curl ^"https://accounts.vbee.vn/api/v1/auth/refresh-token^" ^
+  -H ^"accept: application/json, text/plain, */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9,vi-VN;q=0.8,vi;q=0.7^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"_ga=GA1.1.699983612.1762179064; _tt_enable_cookie=1; _ttp=01K950XFP6EETSATRW36V33W9J_.tt.1; moe_c_s=1; moe_i_m=q1Yqjc9UsgJSmSlKVkqGphYWyanmabqplkaJuibG5pa6iWZJqbrmhhYpKeYWxkZGKRZKtbUA; moe_u_d=HY1BCoNADAD_krMBNxs3iZ-RrFmhIBSq9iL-vdbTMJeZExzGE45X_PGFEdKgOjdZsBk5chZDL7WhJI0QzUSh0MEx-Q5jkkJJrBdmtuvqYJve651afN1aBzF5RLt9_xyPPh8YmImtJ8xeCjIpYzWeURca-uS1eja4fg; moe_s_a_s=5; moe_o_s_t=1762179084344; moe_h_a_s=0; _ga_N2K84YL0MM=GS2.1.s1774721254^$o2^$g0^$t1774721254^$j60^$l0^$h1702891427; _ga_YQ5DZYCB20=GS2.1.s1774721254^$o2^$g0^$t1774721254^$j60^$l0^$h0; _gcl_gs=2.1.k1^$i1774721258^$u129147598; _fbp=fb.1.1774721259293.67737228892684041; moe_uuid=9aeae807-f85b-47e7-86dc-257f72af3bb9; _gcl_au=1.1.1490761701.1774721255.95803874.1775267988.1775267988; ServiceSelect-1588ce7f-e92a-4379-a6be-718dd78322d8=STUDIO; _ga_YJ04B3CMSP=GS2.1.s1776574878^$o7^$g1^$t1776575154^$j50^$l0^$h0; _clck=19zadfy^%^5E2^%^5Eg5f^%^5E0^%^5E2133; _uetvid=f34ca540b8be11f0ab51ebc7810e61ca; aivoice_refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTg4Y2U3Zi1lOTJhLTQzNzktYTZiZS03MThkZDc4MzIyZDgiLCJhenAiOiJ2YmVlLWFjY291bnQiLCJpYXQiOjE3NzY4NzE2OTQsImV4cCI6MTc3NzczNTY5NH0.JVhODK9fyRjw7VEu7_kqapfJjw-aPFDgLF4xbTBpbbs; _ga_WDLNE63H7J=GS2.1.s1776871694^$o10^$g0^$t1776871694^$j60^$l0^$h0; ttcsid=1776871694562::oafjdmFZcXSi_Ovr_s5z.11.1776871694816.0::1.-1710.0::0.0.0.0::0.0.0; ttcsid_C3K069FB3D4SNL4HTB8G=1776871694561::LnzFwuEh9NpaeOTcaWev.11.1776871694816.0; moe_s_n=RcoxDoAgDIXhu3SWBKxS8CrGNCiQGKMOuBnvbnFxfP_7bii8wQCRgnMGWxXCklTns1GeNKq-b-OcKaaYZ2gEF75gMETWkbHeI-pa9686LWPhla86x6k-6ffYibdCDj65SMXnBQ; _ga_2CKG9WFZVQ=GS2.1.s1777380478^$o4^$g0^$t1777380478^$j60^$l0^$h0; _ga_YYQWGH5F44=GS2.1.s1777380478^$o12^$g0^$t1777380478^$j60^$l0^$h0^" ^
+  -H ^"origin: https://studio.vbee.vn^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://studio.vbee.vn/^" ^
+  -H ^"sec-ch-ua: ^\^"Google Chrome^\^";v=^\^"147^\^", ^\^"Not.A/Brand^\^";v=^\^"8^\^", ^\^"Chromium^\^";v=^\^"147^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-site^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36^" ^
+  --data-raw ^"^{^\^"clientId^\^":^\^"aivoice-web-application^\^"^}^"

@@ -1,5 +1,6 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 import argparse
+import base64
 import json
 import re
 import sys
@@ -66,6 +67,72 @@ def load_tokens(path: Path) -> List[str]:
         if token.lower().startswith("bearer "):
             token = token[7:].strip()
         tokens.append(token)
+    return tokens
+
+
+def get_token_sub(token: str) -> Optional[str]:
+    try:
+        parts = token.split(".")
+        if len(parts) < 2:
+            return None
+        payload = parts[1]
+        payload = payload.replace("-", "+").replace("_", "/")
+        payload += "=" * ((4 - len(payload) % 4) % 4)
+        data = json.loads(base64.b64decode(payload).decode("utf-8"))
+        return data.get("sub")
+    except Exception:
+        return None
+
+
+def refresh_vbee_token(refresh_token: str) -> Optional[Tuple[str, str]]:
+    url = "https://accounts.vbee.vn/api/v1/auth/refresh-token"
+    headers = {
+        "accept": "application/json, text/plain, */*",
+        "content-type": "application/json",
+        "cookie": f"aivoice_refresh_token={refresh_token}",
+        "user-agent": "Mozilla/5.0",
+    }
+    payload = {"clientId": "aivoice-web-application"}
+    try:
+        data = json.dumps(payload).encode("utf-8")
+        code, raw = http_request("POST", url, headers=headers, data=data)
+        if 200 <= code < 300:
+            resp_data = parse_json(raw)
+            new_access = resp_data.get("accessToken")
+            new_refresh = resp_data.get("refreshToken")
+            if new_access:
+                return new_access, new_refresh or refresh_token
+    except Exception as e:
+        print(f"Refresh error: {e}")
+    return None
+
+
+def update_file_content(path: Path, old_text: str, new_text: str) -> bool:
+    if not path.exists() or not old_text:
+        return False
+    try:
+        content = path.read_text(encoding="utf-8", errors="ignore")
+        if old_text in content:
+            new_content = content.replace(old_text, new_text)
+            path.write_text(new_content, encoding="utf-8")
+            return True
+    except Exception as e:
+        print(f"Error updating {path.name}: {e}")
+    return False
+
+
+def load_refresh_tokens(path: Path) -> List[str]:
+    if not path.exists():
+        return []
+    content = path.read_text(encoding="utf-8", errors="ignore")
+    # Try finding cookie style first
+    tokens = re.findall(r"aivoice_refresh_token=([a-zA-Z0-9._-]+)", content)
+    if not tokens:
+        # Try finding bare JWTs (at least 2 dots)
+        for line in content.splitlines():
+            t = line.strip()
+            if t and t.count(".") >= 2:
+                tokens.append(t)
     return tokens
 
 
@@ -196,7 +263,7 @@ def generate_one(
     bitrate: int,
     poll_attempts: int,
     poll_interval: float,
-) -> Tuple[bool, Optional[bytes], str]:
+) -> Tuple[bool, Optional[bytes], str, int]:
     payload = {
         "audioType": audio_type,
         "bitrate": bitrate,
@@ -215,6 +282,8 @@ def generate_one(
     # 1) requests snapshot before synthesis
     before_ids = set()
     code, raw = http_request("GET", REQUESTS_URL, headers=build_headers(token))
+    if code == 401:
+        return False, None, "unauthorized", code
     if 200 <= code < 300:
         before_data = parse_json(raw)
         before_ids = set(extract_request_ids_from_requests(before_data))
@@ -226,8 +295,10 @@ def generate_one(
         headers=build_headers(token, content_type_json=True),
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
     )
+    if code == 401:
+        return False, None, "unauthorized", code
     if code < 200 or code >= 300:
-        return False, None, f"synthesis failed ({code})"
+        return False, None, f"synthesis failed ({code})", code
 
     synthesis_data = parse_json(raw)
     req_id = extract_uuid(synthesis_data)
@@ -236,6 +307,8 @@ def generate_one(
     if not req_id:
         for _ in range(max(3, poll_attempts // 2)):
             code, raw = http_request("GET", REQUESTS_URL, headers=build_headers(token))
+            if code == 401:
+                return False, None, "unauthorized", code
             if 200 <= code < 300:
                 requests_data = parse_json(raw)
                 current_ids = extract_request_ids_from_requests(requests_data)
@@ -246,7 +319,7 @@ def generate_one(
             time.sleep(poll_interval)
 
     if not req_id:
-        return False, None, "cannot find new request id (avoid reusing old audio)"
+        return False, None, "cannot find new request id (avoid reusing old audio)", code
 
     # 4) collect (best effort)
     try:
@@ -268,14 +341,16 @@ def generate_one(
         time.sleep(poll_interval)
 
     if not audio_link:
-        return False, None, "audio link not ready"
+        return False, None, "audio link not ready", code
 
     # download audio
     code, audio_bytes = http_request("GET", audio_link, headers={"user-agent": "Mozilla/5.0"}, timeout=60)
+    if code == 401:
+        return False, None, "unauthorized", code
     if code < 200 or code >= 300 or not audio_bytes:
-        return False, None, f"download failed ({code})"
+        return False, None, f"download failed ({code})", code
 
-    return True, audio_bytes, "ok"
+    return True, audio_bytes, "ok", code
 
 
 def main() -> int:
@@ -284,7 +359,8 @@ def main() -> int:
     )
     parser.add_argument("--input", default="truyen.txt", help="Input text file")
     parser.add_argument("--tokens", default="token.txt", help="Token file, one token per line")
-    parser.add_argument("--outdir", default="audio_output", help="Output directory for mp3 files")
+    parser.add_argument("--refresh-tokens", default="refresh-token.txt", help="Refresh token file or curl command")
+    parser.add_argument("--outdir", default="audio_output2", help="Output directory for mp3 files")
     parser.add_argument("--voice", default="hn_female_ngochuyen_full_48k-fhg", help="Vbee voiceCode")
     parser.add_argument("--speed", type=float, default=1.1, help="Speech speed")
     parser.add_argument("--audio-type", default="mp3", choices=["mp3", "wav"], help="Audio type")
@@ -311,6 +387,17 @@ def main() -> int:
     if not tokens:
         print(f"No token found in {token_path}. Add one token per line.")
         return 1
+
+    refresh_token_path = Path(args.refresh_tokens)
+    refresh_map = {}
+    if refresh_token_path.exists():
+        r_tokens = load_refresh_tokens(refresh_token_path)
+        for rt in r_tokens:
+            sub = get_token_sub(rt)
+            if sub:
+                refresh_map[sub] = rt
+        if refresh_map:
+            print(f"Loaded {len(refresh_map)} refresh tokens from {refresh_token_path.name}")
 
     raw_text = input_path.read_text(encoding="utf-8", errors="ignore")
     sentences = split_sentences(raw_text)
@@ -347,7 +434,7 @@ def main() -> int:
 
         for token_idx in token_order:
             token = tokens[token_idx]
-            success, audio_bytes, message = generate_one(
+            success, audio_bytes, message, code = generate_one(
                 sentence=sentence,
                 token=token,
                 voice_code=args.voice,
@@ -357,6 +444,35 @@ def main() -> int:
                 poll_attempts=args.poll_attempts,
                 poll_interval=args.poll_interval,
             )
+
+            if not success and code == 401:
+                sub = get_token_sub(token)
+                rt = refresh_map.get(sub) if sub else None
+                if rt:
+                    print(f"Token #{token_idx + 1} expired. Attempting refresh...")
+                    new_pair = refresh_vbee_token(rt)
+                    if new_pair:
+                        new_access, new_refresh = new_pair
+                        # Update files
+                        update_file_content(token_path, token, new_access)
+                        update_file_content(refresh_token_path, rt, new_refresh)
+                        # Update memory
+                        tokens[token_idx] = new_access
+                        token = new_access
+                        refresh_map[sub] = new_refresh
+                        print(f"Token #{token_idx + 1} refreshed successfully.")
+                        # Retry
+                        success, audio_bytes, message, code = generate_one(
+                            sentence=sentence,
+                            token=token,
+                            voice_code=args.voice,
+                            speed=args.speed,
+                            audio_type=args.audio_type,
+                            bitrate=args.bitrate,
+                            poll_attempts=args.poll_attempts,
+                            poll_interval=args.poll_interval,
+                        )
+
             if success and audio_bytes:
                 output_file.write_bytes(audio_bytes)
                 print(f"[{i}/{len(sentences)}] saved {output_file.name} (token #{token_idx + 1})")
